@@ -10,6 +10,8 @@ import { useNavigate } from "react-router-dom";
 import AuthContext from "../../contexts/authContext/authContext";
 import filledHeart from "../.../../../assets/filledHeart.svg";
 import CommentSection from "../shared/commentSection/CommentSection";
+import ImageCard from "./ImageCard";
+import { HiMiniChatBubbleOvalLeft } from "react-icons/hi2";
 
 const ContentLandingPage = () => {
   const postContainerRef = useRef<HTMLDivElement>(null);
@@ -119,7 +121,7 @@ const ContentLandingPage = () => {
       >
         {userWithLatestContent.length > 0 &&
           userWithLatestContent?.map((post: any) => (
-            <div key={post._id} className="bg-transparent mb-4  ">
+            <div key={post._id} className="bg-transparent mb-4 px-1.5  ">
               <div
                 className="flex flex-row items-center gap-2"
                 onClick={() => handleProfileClick(post._id)}
@@ -127,19 +129,23 @@ const ContentLandingPage = () => {
                 <img
                   src={post.profile_image || demoProfileImage}
                   alt="Profile"
-                  className="rounded-full w-10 h-10 object-cover border border-white"
+                  className="rounded-full w-10 h-10 object-cover "
                 />
                 <h4 className="font-semibold text-white">{post.user_name}</h4>
               </div>
-              <img
+              <ImageCard
+                img={post.latestContent?.media_post}
+                likes={post?.latestContent?.likes?.length}
+              />
+              {/* <img
                 src={post.latestContent?.media_post || ""}
                 alt="Post"
                 className="w-full mt-2 object-cover h-auto"
-              />
+              /> */}
               {/* Icons Row */}
-              <div className="flex gap-5 items-center mt-2 ml-2">
+              <div className="flex gap-5 items-center mt-4 ml-2">
                 <button
-                  className="flex items-center"
+                  className="flex items-center px-3 py-2 rounded-full backdrop-blur bg-white/10 border border-white/10 shadow-[inset_0_0_1px_rgba(255,255,255,0.02)] transition-transform hover:scale-105"
                   onClick={() => {
                     console.log(
                       "=======>post liked id",
@@ -158,23 +164,25 @@ const ContentLandingPage = () => {
                     alt="Like"
                     className="w-6 h-6 mr-1"
                   />
+                  <span className="text-white text-sm font-medium">
+                    {isPostLikedByUser(post?.latestContent?.likes)
+                      ? "Liked"
+                      : "Like"}
+                  </span>
                 </button>
+
                 <button
-                  className="flex items-center"
+                  className="flex items-center -ml-2 px-3 py-2 rounded-full backdrop-blur bg-white/10 border border-white/10
+                   shadow-[inset_0_0_1px_rgba(255,255,255,0.02)] transition-transform hover:scale-105"
                   onClick={() => handleComment(post?.latestContent._id)}
                 >
-                  <img
-                    src={commentSvg}
-                    alt="Comment"
-                    className="w-6 h-6 mr-1"
-                  />
-                </button>
-                <button className="flex items-center">
-                  <img src={shareSvg} alt="Share" className="w-6 h-6 mr-1" />
+                  <HiMiniChatBubbleOvalLeft className="text-white w-6 h-6" />
+                  <span className="text-white text-sm font-medium ml-1">
+                    Comment
+                  </span>
                 </button>
               </div>
               <div className="mt-1 ml-2">
-                <p className="text-white text-sm font-semibold">{`${post?.latestContent?.likes?.length} likes`}</p>
                 <p className="text-white ">
                   {post?.latestContent?.description}
                 </p>

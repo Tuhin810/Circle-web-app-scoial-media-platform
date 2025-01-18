@@ -17,7 +17,7 @@ const LiveUserBox = ({ stream }: any) => {
       <img
         src={stream?.broadcaster?.profile_image}
         alt="Profile"
-        className="rounded-full w-16 h-16 border-2 border-[#707195] bg-gray-500 object-cover"
+        className="rounded-full w-16 h-16  bg-gray-500 object-cover"
       />
 
       <img

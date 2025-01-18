@@ -23,7 +23,7 @@ const GolIveBtn = ({ onpress }: any) => {
       className="flex relative gap-2 flex-col items-center min-w-max"
       onClick={handleGoLiveClick}
     >
-      <div className="bg-black rounded-full w-16 h-16 border-2 border-[#707195] object-cover flex items-center justify-center">
+      <div className="bg-gray-900 rounded-full w-16 h-16 object-cover flex items-center justify-center">
         <img
           className="h-12 w-12"
           src="https://cdn-icons-png.freepik.com/512/5822/5822037.png?ga=GA1.1.1598467923.1731688846"

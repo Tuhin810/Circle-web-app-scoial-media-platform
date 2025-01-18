@@ -10,6 +10,7 @@ import ContentLandingPage from "./ContentLandingPage";
 import FloatingNavbar from "../shared/floatingNavbar/FloatingNavbar";
 import GolIveBtn from "../shared/goLiveBtn/GolIveBtn";
 import LiveUserBox from "../shared/liveUserBox/LiveUserBox";
+import { GrAd } from "react-icons/gr";
 
 const LandingPage = () => {
   const { user } = useContext(AuthContext);
@@ -97,17 +98,29 @@ const LandingPage = () => {
   const handleStreamView = () => {
     navigate(`/live-stream/${user?._id}`);
   };
+
   return (
     <>
-      <div className="flex flex-col bg-gray-900 min-h-screen">
+      <div className="flex flex-col bg-black min-h-screen">
         <div className="flex justify-between  items-center px-4 py-3">
           <h2
-            className="text-white text-3xl font-bold ml-2 t font-bold text-2xl leading-tight"
-            style={{ fontFamily: "'Dancing Script', cursive" }}
+            className="text-white text-2xl font-bold ml-2 t font-bold text-2xl leading-tight flex gap-2"
+            // style={{ fontFamily: "'Dancing Script', cursive" }}
           >
-            21Xconnect
+            <GrAd className="text-[#d8fc5f]" />
+            Circle
           </h2>
-          <div className="flex gap-2">
+          <Link to={"/profile"}>
+            <img
+              src={
+                user?.profile_image ||
+                "https://as1.ftcdn.net/v2/jpg/03/53/11/00/1000_F_353110097_nbpmfn9iHlxef4EDIhXB1tdTD0lcWhG9.jpg"
+              }
+              alt="Profile"
+              className="w-10 h-10 rounded-full  object-cover"
+            />
+          </Link>
+          {/* <div className="flex gap-2">
             <Link to={"/all-events"}>
               <img
                 src="https://cdn-icons-png.freepik.com/512/14996/14996864.png?ga=GA1.1.1598467923.1731688846"
@@ -129,7 +142,7 @@ const LandingPage = () => {
                 alt="Settings"
               />
             </button>
-          </div>
+          </div> */}
         </div>
         <div className="flex items-center py-2 pl-2 ">
           <div
@@ -148,11 +161,14 @@ const LandingPage = () => {
                 className="flex gap-2 flex-col items-center min-w-max"
                 onClick={() => handleFollowersProfileClick(follower._id)}
               >
-                <img
-                  src={follower.profile_image || demoProfileImage}
-                  alt="Profile"
-                  className="rounded-full w-16 h-16 border-2 border-[#707195] object-cover"
-                />
+                <div className="">
+                  <img
+                    src={follower.profile_image || demoProfileImage}
+                    alt="Profile"
+                    className="rounded-[1.7rem]  w-16 h-16 border border-gray-900 object-cover"
+                  />
+                </div>
+
                 <span className="text-xs mt-1 text-gray-200">
                   {follower.user_name.length > 7
                     ? `${follower.user_name.slice(0, 7)}...`
