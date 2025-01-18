@@ -16,7 +16,7 @@ const FloatingNavbar = () => {
   const handleHomeView = () => {
     navigate(`/landingpage`);
   };
-	
+
   const handleSettingsView = () => {
     navigate(`/settings`);
   };
@@ -24,7 +24,6 @@ const FloatingNavbar = () => {
   const handleSearchView = () => {
     navigate(`/search`);
   };
-
 
   return (
     <div
@@ -35,7 +34,9 @@ const FloatingNavbar = () => {
       <button
         onClick={handleHomeView}
         className={`flex flex-col items-center w-20 p-1 rounded-full ${
-          location.pathname === "/landingpage" ? "bg-gray-700" : "hover:bg-gray-600"
+          location.pathname === "/landingpage"
+            ? "bg-gray-700"
+            : "hover:bg-gray-600"
         }`}
       >
         <img
@@ -57,7 +58,7 @@ const FloatingNavbar = () => {
           alt="Home"
         />
       </button>
-      
+
       {/* Profile Button */}
       <button
         onClick={handleProfileView}

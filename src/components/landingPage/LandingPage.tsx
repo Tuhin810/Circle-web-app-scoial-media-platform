@@ -11,6 +11,7 @@ import FloatingNavbar from "../shared/floatingNavbar/FloatingNavbar";
 import GolIveBtn from "../shared/goLiveBtn/GolIveBtn";
 import LiveUserBox from "../shared/liveUserBox/LiveUserBox";
 import { GrAd } from "react-icons/gr";
+import MobileNavigation from "../shared/floatingNavbar/MobileNavigation";
 
 const LandingPage = () => {
   const { user } = useContext(AuthContext);
@@ -182,7 +183,7 @@ const LandingPage = () => {
         {/* Posts section */}
         <ContentLandingPage />
       </div>
-      <FloatingNavbar />
+      <MobileNavigation />
     </>
   );
 };
