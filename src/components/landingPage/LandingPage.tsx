@@ -1,6 +1,6 @@
 import { demoProfileImage } from "../../constants/dummyContent/DummyExamples";
 import { AiOutlineMessage } from "react-icons/ai";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import AuthContext from "../../contexts/authContext/authContext";
 import { Link, useNavigate } from "react-router-dom";
 import { api } from "../../utils/api";
@@ -88,29 +88,14 @@ const LandingPage = () => {
     }
   };
 
-  const [showNav, setShowNav] = useState<boolean>(true); // To track visibility of the navigation
-  const prevScrollY = useRef<number>(0); // To store previous scroll position
+  console.log("===>User", user.role);
+  const handleMessageClick = () => {
+    navigate("/message");
+  };
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > prevScrollY.current) {
-        // Scrolling down, hide the navigation
-        setShowNav(false);
-      } else {
-        // Scrolling up, show the navigation
-        setShowNav(true);
-      }
-      prevScrollY.current = window.scrollY; // Update previous scroll position
-    };
-
-    // Add the scroll event listener
-    window.addEventListener("scroll", handleScroll);
-
-    // Cleanup the event listener when the component unmounts
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
+  const handleSettingsView = () => {
+    navigate(`/settings`);
+  };
   const handleStreamView = () => {
     navigate(`/live-stream/${user?._id}`);
   };
@@ -118,7 +103,7 @@ const LandingPage = () => {
   return (
     <>
       <div className="flex flex-col bg-black min-h-screen">
-        <div className="flex fixed w-full top-0 bg-black z-[50] justify-between  items-center px-4 py-3">
+        <div className="flex justify-between  items-center px-4 py-3">
           <h2
             className="text-white text-2xl font-bold ml-2 t font-bold text-2xl leading-tight flex gap-2"
             // style={{ fontFamily: "'Dancing Script', cursive" }}
@@ -160,7 +145,7 @@ const LandingPage = () => {
             </button>
           </div> */}
         </div>
-        <div className="flex pt-16 mt-2 items-center py-2 pl-2 ">
+        <div className="flex items-center py-2 pl-2 ">
           <div
             className="flex space-x-4 hidescroll overflow-x-auto scrollbar-hide"
             onScroll={handleScroll}
@@ -198,7 +183,6 @@ const LandingPage = () => {
         {/* Posts section */}
         <ContentLandingPage />
       </div>
-
       <MobileNavigation />
     </>
   );
