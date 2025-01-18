@@ -7,7 +7,7 @@ import { TbSmartHome } from "react-icons/tb";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const MobileNavigation = () => {
-  const [activeIndex, setActiveIndex] = useState<number>(2); // Default active index (Add)
+  const [activeIndex, setActiveIndex] = useState<number>(0); // Default active index (Add)
   const navRef = useRef<HTMLUListElement | null>(null);
   const navIndicatorRef = useRef<HTMLSpanElement | null>(null);
 
@@ -35,8 +35,8 @@ const MobileNavigation = () => {
   return (
     <>
       <ul
-        className="nav  backdrop-blur bg-black border border-black/10
-                   shadow-[inset_0_0_1px_rgba(255,255,255,0.02)] transition-transform"
+        className="nav w-full backdrop-blur bg-black border border-black/10
+        shadow-[inset_0_0_1px_rgba(255,255,255,0.02)] transition-transform"
         ref={navRef}
       >
         <span className="nav-indicator bg-black" ref={navIndicatorRef}></span>
