@@ -1,5 +1,3 @@
-
-
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useCallback, useRef } from "react";
@@ -19,7 +17,7 @@ const CreatorSignUp = () => {
     is_adult: false,
     role: "creator",
     signature_url: "",
-    cpassword:""
+    cpassword: "",
   });
   const [uploadProfilePhoto, setUploadProfilePhoto] = useState<File | null>(
     null
@@ -53,7 +51,7 @@ const CreatorSignUp = () => {
   };
 
   const [error, setError] = useState("");
-  const checkPassword = (e:any) => {
+  const checkPassword = (e: any) => {
     const { name, value, type, checked } = e.target;
     setUserDetails((prev) => ({
       ...prev,
@@ -76,7 +74,6 @@ const CreatorSignUp = () => {
     if (name === "password" || name === "confirmPassword") {
       setError(""); // Reset error when the user starts typing
     }
-
   };
 
   const handleSignup = useCallback(
@@ -118,7 +115,7 @@ const CreatorSignUp = () => {
             bio: "",
             role: "creator",
             signature_url: "",
-            cpassword:""
+            cpassword: "",
           });
           // setUploadProfilePhoto(null);
 
@@ -172,7 +169,7 @@ const CreatorSignUp = () => {
   return (
     <div>
       <div className="container mx-auto">
-        <div className="flex flex-col lg:flex-row pb-5 mb- bg-white mx-auto shadow-lg overflow-hidden">
+        <div className="flex flex-col lg:flex-row pb-5 mb- bg-black mx-auto shadow-lg overflow-hidden">
           <div
             className="w-full lg:w-1/2 h-56 flex flex-col items-center justify-center p-12 bg-no-repeat bg-center bg-cover"
             style={{
@@ -189,7 +186,7 @@ const CreatorSignUp = () => {
               </p>
             </div>
           </div>
-          <div className="w-full lg:w-1/2 py-8 px-12">
+          <div className="w-full lg:w-1/2 py-8 px-4">
             <form onSubmit={handleSignup}>
               {/* <div className="grid grid-cols-2 gap-5">
                 <input
@@ -212,61 +209,61 @@ const CreatorSignUp = () => {
                 />
               </div> */}
               <div>
-                <div className="text-lg">Full Name</div>
+                <div className="text-sm text-gray-100">Full Name</div>
                 <input
                   type="text"
                   name="full_name"
                   value={userDetails.full_name}
                   onChange={handleChange}
-                  className="border border-gray-400 py-2 px-2 rounded-lg w-full"
+                  className="border bg-gray-900 py-4 outline-none border-none px-4  rounded-full w-full text-white"
                   placeholder="Enter Full Name"
                   required
                 />
               </div>
               <div className="mt-5">
-                <div className="text-lg">Email</div>
+                <div className="text-sm text-gray-100">Email</div>
                 <input
                   type="email"
                   name="email"
                   value={userDetails.email}
                   onChange={handleChange}
                   placeholder="Email"
-                  className="border border-gray-400 py-2 px-2 rounded-lg w-full"
+                  className="border bg-gray-900 py-4 outline-none border-none px-4  rounded-full w-full text-white"
                   required
                 />
               </div>
               <div className="mt-5">
-                <div className="text-lg">Bio</div>
+                <div className="text-sm text-gray-100">Bio</div>
                 <textarea
                   name="bio"
                   value={userDetails.bio}
                   onChange={handleChange}
                   placeholder="Bio"
-                  className="border border-gray-400 py-2 px-2 rounded-lg w-full h-24"
+                  className="border bg-gray-900 py-4 outline-none border-none px-4  rounded-full w-full text-white"
                   required
                 />
               </div>
               <div className="mt-5">
-                <div className="text-lg">User Name</div>
+                <div className="text-sm text-gray-100">User Name</div>
                 <input
                   type="text"
                   name="user_name"
                   value={userDetails.user_name}
                   onChange={handleChange}
                   placeholder="User Name"
-                  className="border border-gray-400 py-2 px-2 rounded-lg w-full"
+                  className="border bg-gray-900 py-4 outline-none border-none px-4  rounded-full w-full text-white"
                   required
                 />
               </div>
               <div className="mt-5">
-                <div className="text-lg">Password</div>
+                <div className="text-sm text-gray-100">Password</div>
                 <input
                   type="password"
                   name="password"
                   value={userDetails.password}
                   onChange={handleChange}
                   placeholder="Password"
-                  className="border border-gray-400 py-2 px-2 rounded-lg w-full"
+                  className="border bg-gray-900 py-4 outline-none border-none px-4  rounded-full w-full text-white"
                   required
                 />
               </div>
@@ -278,16 +275,18 @@ const CreatorSignUp = () => {
                   value={userDetails.cpassword}
                   onChange={checkPassword}
                   placeholder="Confirm Password"
-                  className="border border-gray-400 py-2 px-2 rounded-lg w-full"
+                  className="border bg-gray-900 py-4 outline-none border-none px-4  rounded-full w-full text-white"
                   required
                 />
-                {
-                  error && <div className="text-red-500 text-sm">Password doesn't match</div>
-                }
+                {error && (
+                  <div className="text-red-500 text-sm">
+                    Password doesn't match
+                  </div>
+                )}
               </div>
 
               <div className="mt-5">
-                <div className="text-lg">Profile Picture</div>
+                <div className="text-sm text-gray-100">Profile Picture</div>
                 <button
                   style={{
                     marginTop: 20,
@@ -298,6 +297,7 @@ const CreatorSignUp = () => {
                 >
                   <input
                     type="file"
+                    className="border bg-gray-900 py-4 outline-none border-none px-4  rounded-full w-full text-white"
                     onChange={(event) => {
                       const file = event.target.files?.[0];
                       if (file) {
@@ -309,10 +309,9 @@ const CreatorSignUp = () => {
                   />
                 </button>
               </div>
-              
 
               <div className="mt-5">
-                <div className="text-lg">Age proof</div>
+                <div className="text-sm text-gray-100">Age proof</div>
                 <button
                   style={{
                     marginTop: 20,
@@ -323,6 +322,7 @@ const CreatorSignUp = () => {
                 >
                   <input
                     type="file"
+                    className="border bg-gray-900 py-4 outline-none border-none px-4  rounded-full w-full text-white"
                     onChange={(event) => {
                       const file = event.target.files?.[0];
                       if (file) {
@@ -336,12 +336,14 @@ const CreatorSignUp = () => {
               </div>
 
               <div className="mt-5">
-                <h3>Provide Your E-Signature</h3>
+                <h3 className="text-gray-100 mb-2 text-sm">
+                  Provide Your E-Signature
+                </h3>
                 <SignatureCanvas
                   ref={sigCanvas}
                   penColor="black"
                   canvasProps={{
-                    className: "border border-gray-400 rounded-lg w-full h-32",
+                    className: " bg-gray-900 rounded-lg w-full h-32",
                   }}
                   onEnd={handleSaveSignature}
                 />
@@ -349,14 +351,14 @@ const CreatorSignUp = () => {
                   <button
                     type="button"
                     onClick={handleClearSignature}
-                    className="text-red-500 underline"
+                    className="text-red-500 "
                   >
                     Clear Signature
                   </button>
                 </div>
               </div>
 
-              <div className="mt-5 flex items-center">
+              <div className="mt-5 flex text-sm text-gray-300 items-center">
                 <input
                   type="checkbox"
                   name="is_adult"
@@ -379,10 +381,11 @@ const CreatorSignUp = () => {
               <div className="mt-5">
                 <button
                   type="submit"
-                  className={`${!userDetails.is_adult || !termsAccepted
+                  className={`${
+                    !userDetails.is_adult || !termsAccepted
                       ? "bg-gray-400"
-                      : "bg-[#67043d]"
-                    } rounded-full w-full font-semibold text-lg text-center text-white py-2`}
+                      : "bg-[#d8fc5f]"
+                  } rounded-full w-full font-semibold text-lg text-center text-black py-3`}
                   disabled={!userDetails.is_adult || !termsAccepted}
                 >
                   Sign Up

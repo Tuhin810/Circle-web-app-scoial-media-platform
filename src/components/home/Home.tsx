@@ -6,7 +6,7 @@ import LandingScreen from "./landingScreen/LandingScreen";
 const Home = () => {
   return (
     <div>
-      <LandingScreen/>
+      <LandingScreen />
       {/* <Navbar /> */}
       {/* <Body /> */}
       {/* <Footer /> */}

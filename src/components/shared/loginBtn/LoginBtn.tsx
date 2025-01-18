@@ -81,7 +81,7 @@ const LoginBtn = () => {
                 <input
                   id="username"
                   type="text"
-                  className="w-full px-3 py-4 border rounded-full text-gray-700 bg-gray-800 outline-none border-none focus:outline-none focus:border-blue-500"
+                  className="w-full px-3 py-4 border text-white rounded-full bg-gray-800 outline-none border-none focus:outline-none focus:border-blue-500"
                   placeholder="Enter your username"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
@@ -97,7 +97,7 @@ const LoginBtn = () => {
                 <input
                   id="password"
                   type="password"
-                  className="w-full px-3 py-4 border rounded-full text-gray-700 bg-gray-800 outline-none border-none focus:outline-none focus:border-blue-500"
+                  className="w-full px-3 py-4 border rounded-full text-white bg-gray-800 outline-none border-none focus:outline-none focus:border-blue-500"
                   placeholder="Enter your password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -106,15 +106,14 @@ const LoginBtn = () => {
 
               {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
 
-              <button
-                type="submit"
-                className={`bg-[#d8fc5f] text-black font-semibold px-4 py-4 text-xl rounded-full w-full ${
+              <div
+                onClick={handleLogin}
+                className={`bg-[#d8fc5f] text-black font-semibold text-center px-4 py-3 text-xl rounded-full w-full ${
                   isClicked ? "opacity-50 cursor-not-allowed" : ""
                 }`}
-                disabled={isClicked}
               >
                 {isClicked ? "Logging in..." : "Continue"}
-              </button>
+              </div>
             </form>
           </div>
         </div>
