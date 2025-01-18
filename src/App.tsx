@@ -1,0 +1,98 @@
+import "./App.css";
+import { useState, useEffect } from "react";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from "react-router-dom";
+import Footer from "./components/shared/footer/Footer";
+import Home from "./components/home/Home";
+import Profilepage from "./components/profilePage/Profilepage";
+import CreatorSignUp from "./components/signup/CreatorSignUp";
+import VisitorSignUp from "./components/signup/VisitorSignup";
+import LandingPage from "./components/landingPage/LandingPage";
+import FollowersProfilePage from "./components/followersProfilePage/FollowersProfilePage";
+import BottomNavigate from "./components/bottomNavigation/BottomNavigation";
+import { useContext } from "react";
+import AuthContext from "./contexts/authContext/authContext";
+import Search from "./components/search/Search";
+import LiveStream from "./components/liveStream/LiveStream";
+import ContentUpload from "./components/profilePage/contentUploadModel/ContentUpload";
+import FollowersFollowingModels from "./components/shared/followersModel/FollowersFollowingModels";
+import AdultVerify from "./components/shared/adultVerifyModel/AdultVerify";
+import AboutUs from "./components/shared/aboutUs/AboutUs";
+import Categories from "./components/shared/categories/Categories";
+import ContactUs from "./components/shared/contactus/ContactUs";
+import TermAndConditionPage from "./components/shared/terms&conditionModel/TermAndConditionPage";
+import MessageSection from "./components/shared/messageSection/MessageSection";
+import ChatScreen from "./components/chatScreen/ChatScreen";
+import SettingsPage from "./components/settingsPage/SettingsPage";
+import SettingsScreen from "./components/settingsPage/SettingsScreen";
+import EventPage from "./components/eventPage/EventPage";
+import AllEvents from "./components/eventPage/ALlEvents";
+import EventDetails from "./components/eventPage/eventDetails";
+
+function App() {
+  const { user } = useContext(AuthContext);
+  const [showModal, setShowModal] = useState(false);
+
+  useEffect(() => {
+    const hasAgreed = localStorage.getItem("ageVerified");
+
+    if (!hasAgreed) {
+      setShowModal(true);
+    }
+  }, []);
+
+  const handleAgree = () => {
+    localStorage.setItem("ageVerified", "true");
+    setShowModal(false);
+  };
+
+  const handleLeave = () => {
+    setShowModal(false);
+  };
+
+  return (
+    <Router>
+      {showModal && <AdultVerify onAgree={handleAgree} onLeave={handleLeave} />}{" "}
+      {/* Show modal */}
+      <Routes>
+        <Route
+          path="/"
+          element={user ? <Navigate to="/landingpage" /> : <Home />}
+        />
+        <Route path="/landingpage" element={<LandingPage />} />
+
+        <Route path="/creator-signup" element={<CreatorSignUp />} />
+        <Route path="/visitor-signup" element={<VisitorSignUp />} />
+        <Route path="/profile" element={<Profilepage />} />
+        <Route path="/message" element={<MessageSection />} />
+        <Route path="/post" element={<ContentUpload />} />
+        <Route path="/users-profile" element={<FollowersProfilePage />} />
+
+        <Route path="/my-events" element={<EventPage />} />
+        <Route path="/all-events" element={<AllEvents />} />
+        <Route path="/events/:eventId" element={<EventDetails />} />
+
+        <Route path="/settings" element={<SettingsScreen />} />
+        <Route
+          path="/users-profile/followers-list"
+          element={<FollowersFollowingModels />}
+        />
+        <Route path="/search" element={<Search />} />
+        <Route path="/live-stream/:roomId" element={<LiveStream />} />
+        <Route path="/ChatScreen" element={<ChatScreen />} />
+        {/* Footers---Links */}
+        <Route path="/about-us" element={<AboutUs />} />
+        <Route path="/categories" element={<Categories />} />
+        <Route path="/contact-us" element={<ContactUs />} />
+        <Route path="/term-conditions" element={<TermAndConditionPage />} />
+      </Routes>
+      {/* {user && <BottomNavigate />} */}
+    </Router>
+  );
+}
+
+export default App;
