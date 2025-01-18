@@ -27,6 +27,7 @@ import SettingsScreen from "./components/settingsPage/SettingsScreen";
 import EventPage from "./components/eventPage/EventPage";
 import AllEvents from "./components/eventPage/ALlEvents";
 import EventDetails from "./components/eventPage/eventDetails";
+import LandingScreen from "./components/home/landingScreen/LandingScreen";
 
 function App() {
   const { user } = useContext(AuthContext);
@@ -37,7 +38,7 @@ function App() {
       <Routes>
         <Route
           path="/"
-          element={user ? <Navigate to="/landingpage" /> : <Home />}
+          element={user ? <Navigate to="/landingpage" /> : <LandingScreen />}
         />
         <Route path="/landingpage" element={<LandingPage />} />
 
