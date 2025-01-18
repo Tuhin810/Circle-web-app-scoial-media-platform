@@ -35,7 +35,7 @@ const MobileNavigation = () => {
   return (
     <>
       <ul
-        className="nav bg-black  backdrop-blur-lg rounded-lg drop-shadow-lg shadow-gray-400"
+        className="nav bg-black w-full justify-between backdrop-blur-lg rounded-lg drop-shadow-lg shadow-gray-400"
         ref={navRef}
       >
         <span className="nav-indicator bg-black" ref={navIndicatorRef}></span>
@@ -90,7 +90,12 @@ const MobileNavigation = () => {
         </li>
       </ul>
 
-      <svg xmlns="http://www.w3.org/2000/svg" version="1.1" id="filter-svg">
+      <svg
+        className="h-10"
+        xmlns="http://www.w3.org/2000/svg"
+        version="1.1"
+        id="filter-svg"
+      >
         <defs>
           <filter id="goo">
             <feGaussianBlur
