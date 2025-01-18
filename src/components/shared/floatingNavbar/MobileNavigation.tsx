@@ -35,7 +35,7 @@ const MobileNavigation = () => {
   return (
     <>
       <ul
-        className="nav w-full backdrop-blur bg-black border border-black/10
+        className="nav w-full justify-between backdrop-blur bg-black border border-black/10
         shadow-[inset_0_0_1px_rgba(255,255,255,0.02)] transition-transform"
         ref={navRef}
       >
