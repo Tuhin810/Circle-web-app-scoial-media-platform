@@ -1,9 +1,11 @@
 import React, { useRef, useEffect, useState, useContext } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { io } from "socket.io-client";
 import AuthContext from "../../contexts/authContext/authContext";
 import StartSTreamBtn from "../shared/startSctreamBtn/StartSTreamBtn";
 import { api } from "../../utils/api";
+import { GrAd } from "react-icons/gr";
+import TempCamera from "./TempCamera";
 
 const App: React.FC = () => {
   const socket = useRef(io("https://d1kyyw1uhc9dji.cloudfront.net")).current;
@@ -152,20 +154,24 @@ const App: React.FC = () => {
 
   return (
     <div className="bg-black h-screen">
-      <div className="flex justify-between  items-center px-4 py-3">
-        <h2
-          className="text-white text-3xl font-bold ml-2 t font-bold text-2xl leading-tight"
-          style={{ fontFamily: "'Dancing Script', cursive" }}
-        >
-          21Xconnect
-        </h2>
-      </div>
-      <h1>Live Streaming App {room}</h1>
-      <div className="text-2xl"> {user?._id}</div>
+      {/* <div className="flex w-full justify-between  items-center px-4 py-3">
+        <div className="flex justify-between  items-center px-4 py-3">
+          <h2
+            className="text-white text-2xl font-bold ml-2 t font-bold text-2xl leading-tight flex gap-2"
+            // style={{ fontFamily: "'Dancing Script', cursive" }}
+          >
+            <GrAd className="text-[#d8fc5f]" />
+            Circle
+          </h2>
+        </div>
+      </div> */}
+      {/* <h1>Live Streaming App {room}</h1> */}
+      {/* <div className="text-2xl"> {user?._id}</div> */}
       {!role && (
         <div>
           {roomId === user?._id && (
-            <StartSTreamBtn startBroadcast={startBroadcast} />
+            <TempCamera startBroadcast={startBroadcast} />
+            // <StartSTreamBtn startBroadcast={startBroadcast} />
           )}
           {roomId !== user?._id && (
             <div className="flex flex-col justify-center items-center">
@@ -187,7 +193,7 @@ const App: React.FC = () => {
         </div>
       )}
       {role === "broadcaster" && (
-        <div className="relative h-[92vh] -mt-10">
+        <div className="relative h-[92vh] ">
           <h2>Broadcaster</h2>
           <video
             ref={localVideo}
