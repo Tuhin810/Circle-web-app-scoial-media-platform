@@ -1,23 +1,16 @@
 import React, { useContext, useEffect, useState } from "react";
-
-import { HiOutlineSquares2X2 } from "react-icons/hi2";
-import { RxVideo } from "react-icons/rx";
-
 import { api } from "../../utils/api";
-
 import { IUser } from "../../@types/interface/user.interface";
-import FollowersMainProfileView from "./MainProfileView";
 import AuthContext from "../../contexts/authContext/authContext";
-
 import { useNavigate } from "react-router-dom";
-import FloatingNavbar from "../shared/floatingNavbar/FloatingNavbar";
+import OtherProfilePicture from "../profilePage/profilePiture/OtherProfile";
+import MediaPosts from "../profilePage/mideaPosts/MediaPosts";
 
 interface MediaPost {
   media_post: string;
 }
 
 const FollowersProfilePage: React.FC = () => {
-  const [activeTab, setActiveTab] = useState("Photos");
   const query = new URLSearchParams(window.location.search);
   const userObjectId = query.get("user_id");
   const navigate = useNavigate();
@@ -82,141 +75,44 @@ const FollowersProfilePage: React.FC = () => {
           roomId: result?.roomId,
         },
       });
-    } catch (error) {}
+    } catch (err) {
+      console.log(err);
+    }
   };
   console.log("Details-->Check", followersDetails);
   return (
     <>
-      <div className="flex flex-col items-center bg-gray-900 min-h-screen text-white">
-        {/* Profile Picture Section */}
+      <div className="flex flex-col items-center bg-black min-h-screen text-white">
         <div className="w-full">
-          <FollowersMainProfileView userDetails={users} />
+          <OtherProfilePicture
+            posts={content.length}
+            followers={users?.followers?.length ?? 0}
+            handleFollowersView={handleViewFOllowers}
+            following={users?.following?.length ?? 0}
+            setIsModalOpen={() => {}}
+            otherUser={users}
+          />
         </div>
-
-        {/* User Info Section */}
-        <div className="mt-8 text-center w-full px-5">
-          <div className="flex justify-between items-start w-full">
-            {/* Bio on the left */}
-            <div className=" text-left mt-11">
-              <p className="text-gray-400">@{users?.user_name}</p>
-              <div className="mt-1">
-                <p className="text-gray-500 text-sm font-semibold">
-                  {users?.bio}
-                </p>
-              </div>
-            </div>
-
-            {/* Followers, Following, Posts on the right */}
-            <div className="w-1/3 text-right -mt-5">
-              <div className="flex justify-end gap-8">
-                <div className="text-center cursor-pointer">
-                  <h3 className="text-xl font-semibold">{content?.length}</h3>
-                  <p className="text-gray-400">Posts</p>
-                </div>
-                <div className="text-center cursor-pointer">
-                  <h3 className="text-xl font-semibold">
-                    <button onClick={handleViewFOllowers}>
-                      {followersDetails.length}
-                    </button>
-                  </h3>
-                  <p className="text-gray-400">Followers</p>
-                </div>
-                <div className="text-center cursor-pointer">
-                  <h3 className="text-xl font-semibold">0</h3>
-                  <p className="text-gray-400">Following</p>
-                </div>
-              </div>
-            </div>
+        <div className="flex w-full px-3 gap-4 my-5">
+          <div
+            onClick={handleFollow}
+            className="inline-flex items-center justify-center w-full px-5 py-4 text-sm font-semibold
+        tracking-widest text-black uppercase transition-all duration-200 bg-[#d8fc5f] rounded-full 
+        sm:w-auto sm:py-3 hover:opacity-90"
+          >
+            {isFollowing ? "Following" : "Follow"}
           </div>
-
-          {/* Edit Profile Button in the middle */}
-          <div className=" flex justify-center flex-row gap-8">
-            <button
-              className="bg-gray-800 flex gap-2 justify-center w-[45%] mt-5 hover:bg-red-500 text-white font-medium py-3 px-6 rounded-lg"
-              onClick={handleFollow}
-            >
-              <img
-                className="h-6 w-6"
-                src="https://cdn-icons-png.freepik.com/256/14996/14996907.png?ga=GA1.1.1598467923.1731688846"
-                alt=""
-              />
-              {isFollowing ? "Following" : "Follow"}
-            </button>
-            <button
-              onClick={handleMessage}
-              className=" flex gap-2 justify-center bg-gray-800 w-[45%] mt-5 hover:bg-red-500 text-white font-medium py-3 px-6 rounded-lg"
-            >
-              <img
-                className="h-6 w-6"
-                src="https://cdn-icons-png.freepik.com/256/14996/14996870.png?ga=GA1.1.1598467923.1731688846"
-                alt=""
-              />
-              Message
-            </button>
+          <div
+            onClick={handleMessage}
+            className="inline-flex items-center justify-center w-full px-5 py-4 text-sm font-semibold
+        tracking-widest text-black uppercase transition-all duration-200 bg-[#d8fc5f] rounded-full 
+        sm:w-auto sm:py-3 hover:opacity-90"
+          >
+            Chat
           </div>
         </div>
 
-        {/* Navigation (Photos/Videos) with Sliding Tab */}
-        <div className="w-full mt-8 flex items-center justify-center">
-          <div className="w-80">
-            <div className="flex justify-between">
-              <button
-                onClick={() => setActiveTab("Photos")}
-                className={`text-2xl p-2 w-40 justify-center items-center flex ${
-                  activeTab === "Photos"
-                    ? "text-blue-600 bg-gray-800 rounded-t-xl"
-                    : "text-gray-500"
-                } hover:text-blue-600 transition-colors`}
-              >
-                {/* <HiOutlineSquares2X2 /> */}
-                <img
-                  className="h-8 w-8"
-                  src="https://cdn-icons-png.freepik.com/512/14996/14996876.png"
-                  alt=""
-                />
-              </button>
-              <button
-                onClick={() => setActiveTab("Videos")}
-                className={`text-2xl p-2  w-40 justify-center items-center flex ${
-                  activeTab === "Videos"
-                    ? "text-blue-600 bg-gray-800 rounded-t-xl"
-                    : "text-gray-500"
-                } hover:text-blue-600 transition-colors`}
-              >
-                {/* <RxVideo /> */}
-                <img
-                  className="h-8 w-8"
-                  src="https://cdn-icons-png.freepik.com/512/14996/14996818.png"
-                  alt=""
-                />
-              </button>
-            </div>
-            <div
-              className={`w-1/2 h-1.5 bg-[#4d5071] transform transition-transform duration-300 ease-in-out rounded-xl ${
-                activeTab === "Photos" ? "translate-x-0" : "translate-x-full"
-              }`}
-            ></div>
-          </div>
-        </div>
-
-        {/* Photos or Videos Section */}
-        <div className="w-full flex justify-center">
-          {activeTab === "Photos" ? (
-            <div className="grid grid-cols-3 gap-4 w-full p-4">
-              {content.map((media) => (
-                <div className="bg-gray-800 h-32">
-                  <img
-                    src={media?.media_post || ""}
-                    alt=""
-                    className="object-cover h-full w-full"
-                  />
-                </div>
-              ))}
-            </div>
-          ) : (
-            <div className="grid grid-cols-3 gap-1 w-full p-4"></div>
-          )}
-        </div>
+        <MediaPosts mediaPosts={content} setSelectedMedia={{}} />
       </div>
     </>
   );

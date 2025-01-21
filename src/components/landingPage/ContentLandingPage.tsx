@@ -1,11 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useCallback, useContext, useEffect, useRef, useState } from "react";
-import { IContent } from "../../@types/interface/content.interface";
 import { api } from "../../utils/api";
 import { demoProfileImage } from "../../constants/dummyContent/DummyExamples";
 import likeSvg from "../.../../../assets/heart.svg";
-import commentSvg from "../.../../../assets/comment.svg";
-import shareSvg from "../.../../../assets/share.svg";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../../contexts/authContext/authContext";
 import filledHeart from "../.../../../assets/filledHeart.svg";

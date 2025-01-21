@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useContext, useState } from "react";
+import { useState } from "react";
 // import { IconEdit } from "@tabler/icons-react";
-import AuthContext from "../../../contexts/authContext/authContext";
 import { IoReturnUpBack } from "react-icons/io5";
 import { IoMdShare } from "react-icons/io";
 import { RiSettingsFill } from "react-icons/ri";
@@ -9,19 +8,23 @@ import { Link } from "react-router-dom";
 // import { api } from "../../../utils/api";
 // import ImageUploadModal from "../editProfileModels/ImageUploadModals";
 
-const ProfilePicture = ({
+const OtherProfilePicture = ({
   posts,
   followers,
   following,
   setIsModalOpen,
   handleFollowersView,
+  otherUser,
 }: any) => {
-  const { user } = useContext(AuthContext);
   const [isExpanded, setIsExpanded] = useState(false);
 
   const toggleReadMore = () => setIsExpanded(!isExpanded);
 
-  const truncateText = (text: string, limit: number) => {
+  const truncateText = (text: string | undefined, limit: number) => {
+    if (!text) {
+      return { truncated: "", remaining: "" }; // Handle undefined or empty strings
+    }
+
     const words = text.split(" ");
     if (words.length > limit) {
       return {
@@ -29,16 +32,18 @@ const ProfilePicture = ({
         remaining: words.slice(limit).join(" "),
       };
     }
+
     return { truncated: text, remaining: "" };
   };
 
-  const { truncated, remaining } = truncateText(user.bio, 25);
+  const { truncated, remaining } = truncateText(otherUser?.bio, 25);
+
   return (
     <>
       <div
         className=" h-[82vh] bg-black text-white rounded-2xl shadow-lg overflow-hidden relative"
         style={{
-          backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 1)), url(${user?.profile_image})`,
+          backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 1)), url(${otherUser?.profile_image})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
@@ -79,7 +84,7 @@ const ProfilePicture = ({
 
         {/* Info */}
         <div className="p-4 absolute bottom-0">
-          <h1 className="text-4xl font-bold">{user?.user_name}</h1>
+          <h1 className="text-4xl font-bold">{otherUser?.user_name}</h1>
           <div className="flex space-x-2 mt-2">
             <span
               className="flex items-center -ml-2 px-3 py-2 rounded-full backdrop-blur bg-white/10 border border-white/10
@@ -136,4 +141,4 @@ const ProfilePicture = ({
   );
 };
 
-export default ProfilePicture;
+export default OtherProfilePicture;
