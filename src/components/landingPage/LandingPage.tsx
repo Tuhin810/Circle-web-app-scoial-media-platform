@@ -121,29 +121,6 @@ const LandingPage = () => {
               className="w-10 h-10 rounded-full  object-cover"
             />
           </Link>
-          {/* <div className="flex gap-2">
-            <Link to={"/all-events"}>
-              <img
-                src="https://cdn-icons-png.freepik.com/512/14996/14996864.png?ga=GA1.1.1598467923.1731688846"
-                className="h-10 w-10"
-                alt=""
-              />
-            </Link>
-            <button onClick={handleMessageClick}>
-              <img
-                src="https://cdn-icons-png.freepik.com/512/14997/14997032.png"
-                className="h-10 w-10"
-                alt=""
-              />
-            </button>
-            <button onClick={handleSettingsView}>
-              <img
-                className="h-10 w-10"
-                src="https://cdn-icons-png.freepik.com/512/14996/14996938.png?ga=GA1.1.1598467923.1731688846"
-                alt="Settings"
-              />
-            </button>
-          </div> */}
         </div>
         <div className="flex items-center py-2 pl-2 ">
           <div
@@ -183,7 +160,6 @@ const LandingPage = () => {
         {/* Posts section */}
         <ContentLandingPage />
       </div>
-      <MobileNavigation />
     </>
   );
 };

@@ -112,7 +112,7 @@ const ContentLandingPage = () => {
     <>
       <div
         ref={postContainerRef}
-        className="w-full max-w-2xl p-1 overflow-y-auto"
+        className="w-full max-w-2xl p-1 overflow-y-auto mb-32 hidescroll"
         onScroll={handlePostScroll}
         style={{ maxHeight: "80vh" }}
       >

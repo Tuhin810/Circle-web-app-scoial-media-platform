@@ -106,7 +106,12 @@ const MobileNavigation = () => {
         </li>
       </ul>
 
-      <svg xmlns="http://www.w3.org/2000/svg" version="1.1" id="filter-svg">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        version="1.1"
+        id="filter-svg"
+        className="h-20"
+      >
         <defs>
           <filter id="goo">
             <feGaussianBlur

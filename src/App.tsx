@@ -31,20 +31,7 @@ import EventDetails from "./components/eventPage/eventDetails";
 import LandingScreen from "./components/home/landingScreen/LandingScreen";
 import MobileNavigation from "./components/shared/floatingNavbar/MobileNavigation";
 
-const routesWithMobileNavigation = [
-  "/landingpage",
-  "/profile",
-  "/message",
-  "/post",
-  "/users-profile",
-  "/my-events",
-  "/all-events",
-  "/events/:eventId",
-  "/settings",
-  "/users-profile/followers-list",
-  "/search",
-  "/live-stream/:roomId",
-];
+const routesWithMobileNavigation = ["/landingpage", "/profile", "/search"];
 
 function App() {
   const { user } = useContext(AuthContext);
