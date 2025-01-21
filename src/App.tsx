@@ -4,6 +4,7 @@ import {
   Route,
   Routes,
   Navigate,
+  useLocation,
 } from "react-router-dom";
 import Home from "./components/home/Home";
 import Profilepage from "./components/profilePage/Profilepage";
@@ -30,30 +31,54 @@ import EventDetails from "./components/eventPage/eventDetails";
 import LandingScreen from "./components/home/landingScreen/LandingScreen";
 import MobileNavigation from "./components/shared/floatingNavbar/MobileNavigation";
 
+const routesWithMobileNavigation = [
+  "/landingpage",
+  "/profile",
+  "/message",
+  "/post",
+  "/users-profile",
+  "/my-events",
+  "/all-events",
+  "/events/:eventId",
+  "/settings",
+  "/users-profile/followers-list",
+  "/search",
+  "/live-stream/:roomId",
+];
+
 function App() {
   const { user } = useContext(AuthContext);
 
+  const location = useLocation();
+
+  // Check if the current path matches any of the defined routes
+  const shouldShowMobileNavigation = routesWithMobileNavigation.some(
+    (route) => {
+      // Match dynamic paths like "/events/:eventId" or "/live-stream/:roomId"
+      const dynamicRouteRegex = new RegExp(
+        `^${route.replace(/:\w+/g, "\\w+")}$`
+      );
+      return dynamicRouteRegex.test(location.pathname);
+    }
+  );
+
   return (
-    <Router>
-      {/* Show modal */}
+    <>
       <Routes>
         <Route
           path="/"
           element={user ? <Navigate to="/landingpage" /> : <LandingScreen />}
         />
         <Route path="/landingpage" element={<LandingPage />} />
-
         <Route path="/creator-signup" element={<CreatorSignUp />} />
         <Route path="/visitor-signup" element={<VisitorSignUp />} />
         <Route path="/profile" element={<Profilepage />} />
         <Route path="/message" element={<MessageSection />} />
         <Route path="/post" element={<ContentUpload />} />
         <Route path="/users-profile" element={<FollowersProfilePage />} />
-
         <Route path="/my-events" element={<EventPage />} />
         <Route path="/all-events" element={<AllEvents />} />
         <Route path="/events/:eventId" element={<EventDetails />} />
-
         <Route path="/settings" element={<SettingsScreen />} />
         <Route
           path="/users-profile/followers-list"
@@ -68,9 +93,9 @@ function App() {
         <Route path="/contact-us" element={<ContactUs />} />
         <Route path="/term-conditions" element={<TermAndConditionPage />} />
       </Routes>
-      {/* {user && <BottomNavigate />} */}
-      <MobileNavigation />
-    </Router>
+      {/* Render MobileNavigation only for specific routes */}
+      {shouldShowMobileNavigation && <MobileNavigation />}
+    </>
   );
 }
 
