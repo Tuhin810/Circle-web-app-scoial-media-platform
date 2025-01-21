@@ -28,6 +28,7 @@ import EventPage from "./components/eventPage/EventPage";
 import AllEvents from "./components/eventPage/ALlEvents";
 import EventDetails from "./components/eventPage/eventDetails";
 import LandingScreen from "./components/home/landingScreen/LandingScreen";
+import MobileNavigation from "./components/shared/floatingNavbar/MobileNavigation";
 
 function App() {
   const { user } = useContext(AuthContext);
@@ -68,6 +69,7 @@ function App() {
         <Route path="/term-conditions" element={<TermAndConditionPage />} />
       </Routes>
       {/* {user && <BottomNavigate />} */}
+      <MobileNavigation />
     </Router>
   );
 }

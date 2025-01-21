@@ -2,8 +2,10 @@
 
 import { useEffect, useRef, useState } from "react";
 import { IoChatbubbleOutline } from "react-icons/io5";
+import { LuSearch } from "react-icons/lu";
 import { RiUser4Line } from "react-icons/ri";
 import { TbSmartHome } from "react-icons/tb";
+import { Link, useNavigate } from "react-router-dom";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const MobileNavigation = () => {
@@ -32,6 +34,19 @@ const MobileNavigation = () => {
     }
   };
 
+  const navigate = useNavigate();
+
+  const handleHomeView = () => {
+    navigate(`/landingpage`);
+  };
+
+  const handleSettingsView = () => {
+    navigate(`/settings`);
+  };
+
+  const handleSearchView = () => {
+    navigate(`/search`);
+  };
   return (
     <>
       <ul
@@ -41,8 +56,8 @@ const MobileNavigation = () => {
       >
         <span className="nav-indicator bg-black" ref={navIndicatorRef}></span>
         <li>
-          <a
-            href="#"
+          <Link
+            to="/"
             onClick={() => handleClick(0)}
             className={activeIndex === 0 ? "nav-item-active" : ""}
           >
@@ -54,28 +69,28 @@ const MobileNavigation = () => {
               }
             />
             {activeIndex === 0 && <span className="text-sm">Home</span>}
-          </a>
+          </Link>
         </li>
         <li>
-          <a
-            href="#"
+          <Link
+            to="/search"
             onClick={() => handleClick(1)}
             className={activeIndex === 1 ? "nav-item-active" : ""}
           >
-            <IoChatbubbleOutline
+            <LuSearch
               className={
                 activeIndex === 1
                   ? "h-8 w-8 text-[#d8fc5f]"
                   : "h-8 w-8 text-gray-200"
               }
             />
-            <span className="title">Chat</span>
-          </a>
+            <span className="title">Search</span>
+          </Link>
         </li>
 
         <li>
-          <a
-            href="#"
+          <Link
+            to="/profile"
             onClick={() => handleClick(2)}
             className={activeIndex === 2 ? "nav-item-active" : ""}
           >
@@ -86,8 +101,8 @@ const MobileNavigation = () => {
                   : "h-8 w-8 text-gray-200"
               }
             />
-            <span className="title">Add</span>
-          </a>
+            <span className="title">Profile</span>
+          </Link>
         </li>
       </ul>
 

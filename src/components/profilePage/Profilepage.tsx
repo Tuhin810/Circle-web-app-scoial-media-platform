@@ -175,7 +175,6 @@ const Profilepage: React.FC = () => {
           handleClose={handleCloseActivityModal}
           handleLogout={handleLogout}
         />
-        <MobileNavigation />
       </div>
     </>
   );
