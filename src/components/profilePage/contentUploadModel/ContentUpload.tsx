@@ -1,12 +1,15 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import { api } from "../../../utils/api";
 import AuthContext from "../../../contexts/authContext/authContext";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import FloatingNavbar from "../../shared/floatingNavbar/FloatingNavbar";
+import { IoCloudUploadOutline, IoReturnUpBack } from "react-icons/io5";
 
 const ContentUpload = () => {
-  const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const { user } = useContext(AuthContext);
+  const [selectedImage, setSelectedImage] = useState<File | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
+
   const navigate = useNavigate();
   const [mediaContentDetails, setMediaContentDetails] = useState({
     user_id: user?.id,
@@ -36,7 +39,7 @@ const ContentUpload = () => {
   const handleContentUpload = useCallback(
     async (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
-
+      setLoading(true);
       if (!selectedImage) {
         console.error("No image selected for upload");
         return; // Prevent upload if no image is selected
@@ -58,6 +61,8 @@ const ContentUpload = () => {
         }
       } catch (error) {
         console.error("Error uploading media:", error);
+      } finally {
+        setLoading(false);
       }
     },
     [mediaContentDetails, navigate, selectedImage]
@@ -77,94 +82,33 @@ const ContentUpload = () => {
 
   return (
     <>
-      {/* <div className="fixed inset-0 flex items-center justify-center bg-black h-screen">
-        <h2 className="text-white text-lg font-semibold mb-4">Create a Post</h2>
-
-        <form onSubmit={handleContentUpload} className="mb-4">
-          <input
-            type="file"
-            onChange={handleFileChange}
-            required
-            className="text-white mb-5 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-500 file:text-white hover:file:bg-blue-700"
-          />
-          {selectedImage && (
-            <div className="mb-4 relative">
-              <img
-                src={URL.createObjectURL(selectedImage)}
-                alt="Selected Preview"
-                className="w-full h-48 object-cover rounded-md border border-white"
-              />
-              <button
-                type="button" // Use type button to prevent form submission
-                className="absolute top-2 right-2 bg-white text-black rounded-full px-1"
-                onClick={() => setSelectedImage(null)}
-              >
-                ✖
-              </button>
-            </div>
-          )}
-
-          <div className="mb-4">
-            <input
-              type="text"
-              name="description"
-              placeholder="Write a caption..."
-              value={mediaContentDetails.description}
-              onChange={handleChange}
-              className="w-full px-4 py-2 bg-black bg-opacity-75 text-blue-200 border border-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600"
-            />
+      <div className="min-h-screen pt-5  bg-black">
+        <div className="flex justify-between space-x-3 px-5">
+          <div
+            onClick={handleNavigateBack}
+            className="flex items-center -ml-2 px-3 py-2 rounded-full backdrop-blur bg-white/10 border border-white/10
+                                     shadow-[inset_0_0_1px_rgba(255,255,255,0.02)] transition-transform hover:scale-105 text-white text-sm font-medium"
+          >
+            <IoReturnUpBack
+              size={22}
+              className="text-[#d8fc5f] font-extrabold mr-1"
+            />{" "}
+            Back
           </div>
-
-          <div className="flex justify-between">
-            <button
-              type="submit"
-              className="px-4 py-2 bg-blue-600 text-white rounded-md shadow-md"
-            >
-              Share
-            </button>
-            <button
-              type="button"
-              className="px-4 py-2 bg-gray-600 text-white rounded-md shadow-md"
-              onClick={handleCloseModal}
-            >
-              Cancel
-            </button>
-          </div>
-        </form>
-    </div> */}
-      <div className="min-h-screen flex  bg-gray-900">
-        <div className=" rounded-lg p-6 w-full max-w-2xl">
-          <h2 className="text-2xl font-semibold text-white flex gap-2 mb-10">
-            <div className="" onClick={handleNavigateBack}>
-              <img
-                className="h-8 w-8"
-                src="https://cdn-icons-png.freepik.com/512/14997/14997052.png"
-                alt=""
-              />
-            </div>
-            Create a Post
-          </h2>
-          {/* <div className="mb-4 mb-10 text-gray-300 pl-10">Upload a image and  a caption for your post</div> */}
+        </div>
+        <div className="text-gray-200 text-4xl w-48 ml-5 my-5">
+          Lets share what you think?
+        </div>
+        <div className=" rounded-lg p-6 w-full max-w-2xl -mt-5">
           <form onSubmit={handleContentUpload} className="space-y-4">
-            {/* Image Upload Section */}
             <div className="font-semibold text-gray-200">Select Image </div>
-            <div className="flex flex-col items-center border-2 border-dashed border-gray-300 p-4 rounded-lg hover:border-blue-500 transition">
+            <div className="flex flex-col items-center border-2 border-dashed  backdrop-blur bg-white/10 border border-white/10 py-10 rounded-2xl transition">
               <label htmlFor="postImage" className="cursor-pointer">
                 <div className="flex flex-col items-center">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-10 w-10 text-gray-400"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M12 4v16m8-8H4"
-                    />
-                  </svg>
+                  <IoCloudUploadOutline
+                    size={40}
+                    className="text-[#d8fc5f] font-extrabold mr-1"
+                  />
                   <span className="mt-2 text-sm text-gray-400">
                     Click to upload an image
                   </span>
@@ -199,7 +143,6 @@ const ContentUpload = () => {
                 </button>
               </div>
             )}
-            {/* Caption Input */}
             <div>
               <label
                 htmlFor="caption"
@@ -213,21 +156,30 @@ const ContentUpload = () => {
                 placeholder="Write a caption..."
                 value={mediaContentDetails.description}
                 onChange={handleChange}
-                className="w-full bg-gray-700 rounded-lg border-gray-800 text-white shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                className="w-full h-12 rounded-full backdrop-blur bg-white/10 border border-white/10 shadow-[inset_0_0_1px_rgba(255,255,255,0.02)]0"
               />
             </div>
-
-            {/* Submit Button */}
-            <button
-              type="submit"
-              className="w-full bg-[#535678] text-white font-semibold py-3 rounded-lg shadow hover:bg-blue-700 transition"
-            >
-              Post
-            </button>
+            {loading ? (
+              <button
+                className="inline-flex items-center justify-center w-full px-5 py-4 text-sm font-semibold
+  tracking-widest text-black uppercase transition-all duration-200 bg-[#d8fc5f] rounded-full 
+  sm:w-auto sm:py-3 hover:opacity-90"
+              >
+                Uploading your image..
+              </button>
+            ) : (
+              <button
+                type="submit"
+                className="inline-flex items-center justify-center w-full px-5 py-4 text-sm font-semibold
+tracking-widest text-black uppercase transition-all duration-200 bg-[#d8fc5f] rounded-full 
+sm:w-auto sm:py-3 hover:opacity-90"
+              >
+                Post
+              </button>
+            )}
           </form>
         </div>
       </div>
-      <FloatingNavbar />
     </>
   );
 };

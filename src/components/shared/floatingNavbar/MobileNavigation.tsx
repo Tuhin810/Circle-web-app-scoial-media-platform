@@ -2,10 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import { IoChatbubbleOutline } from "react-icons/io5";
-import { LuSearch } from "react-icons/lu";
-import { RiUser4Line } from "react-icons/ri";
-import { TbSmartHome } from "react-icons/tb";
-import { Link, useNavigate } from "react-router-dom";
+import { TbSettings2, TbSmartHome } from "react-icons/tb";
+import { Link } from "react-router-dom";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const MobileNavigation = () => {
@@ -34,19 +32,6 @@ const MobileNavigation = () => {
     }
   };
 
-  const navigate = useNavigate();
-
-  const handleHomeView = () => {
-    navigate(`/landingpage`);
-  };
-
-  const handleSettingsView = () => {
-    navigate(`/settings`);
-  };
-
-  const handleSearchView = () => {
-    navigate(`/search`);
-  };
   return (
     <>
       <ul
@@ -54,7 +39,10 @@ const MobileNavigation = () => {
         shadow-[inset_0_0_1px_rgba(255,255,255,0.02)] transition-transform"
         ref={navRef}
       >
-        <span className="nav-indicator bg-black" ref={navIndicatorRef}></span>
+        <span
+          className="nav-indicator bg-black border-t border-black/10"
+          ref={navIndicatorRef}
+        ></span>
         <li>
           <Link
             to="/"
@@ -73,35 +61,35 @@ const MobileNavigation = () => {
         </li>
         <li>
           <Link
-            to="/search"
+            to="/message"
             onClick={() => handleClick(1)}
             className={activeIndex === 1 ? "nav-item-active" : ""}
           >
-            <LuSearch
+            <IoChatbubbleOutline
               className={
                 activeIndex === 1
                   ? "h-8 w-8 text-[#d8fc5f]"
                   : "h-8 w-8 text-gray-200"
               }
             />
-            <span className="title">Search</span>
+            <span className="title">Chats</span>
           </Link>
         </li>
 
         <li>
           <Link
-            to="/profile"
+            to="/settings"
             onClick={() => handleClick(2)}
             className={activeIndex === 2 ? "nav-item-active" : ""}
           >
-            <RiUser4Line
+            <TbSettings2
               className={
                 activeIndex === 2
                   ? "h-8 w-8 text-[#d8fc5f]"
                   : "h-8 w-8 text-gray-200"
               }
             />
-            <span className="title">Profile</span>
+            <span className="title">Settings</span>
           </Link>
         </li>
       </ul>

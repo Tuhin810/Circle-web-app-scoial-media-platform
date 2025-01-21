@@ -3,8 +3,8 @@ import React from "react";
 
 const MediaPosts = ({ mediaPosts }: any) => {
   return (
-    <div className="w-full flex justify-center bg-black min-h-[25rem] px-4 py-8">
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-6 w-full max-w-5xl">
+    <div className="w-full flex justify-center bg-black min-h-[25rem] px-1 py-8">
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-2 w-full max-w-5xl">
         {mediaPosts?.map((media: any, index: any) => (
           <div
             key={index}

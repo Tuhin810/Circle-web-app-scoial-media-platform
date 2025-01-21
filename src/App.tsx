@@ -6,7 +6,6 @@ import {
   Navigate,
   useLocation,
 } from "react-router-dom";
-import Home from "./components/home/Home";
 import Profilepage from "./components/profilePage/Profilepage";
 import CreatorSignUp from "./components/signup/CreatorSignUp";
 import VisitorSignUp from "./components/signup/VisitorSignup";
@@ -31,7 +30,7 @@ import EventDetails from "./components/eventPage/eventDetails";
 import LandingScreen from "./components/home/landingScreen/LandingScreen";
 import MobileNavigation from "./components/shared/floatingNavbar/MobileNavigation";
 
-const routesWithMobileNavigation = ["/landingpage", "/profile", "/search"];
+const routesWithMobileNavigation = ["/landingpage", "/message", "/settings"];
 
 function App() {
   const { user } = useContext(AuthContext);

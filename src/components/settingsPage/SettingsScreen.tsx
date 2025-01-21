@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   FaUser,
   FaBell,
@@ -8,6 +8,7 @@ import {
   FaShieldAlt,
 } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
+import AuthContext from "../../contexts/authContext/authContext";
 
 const SettingsScreen = () => {
   const [notificationsEnabled, setNotificationsEnabled] = useState(true);
@@ -44,80 +45,122 @@ const SettingsScreen = () => {
       // Implement account deletion logic here
     }
   };
-
+  const { user } = useContext(AuthContext);
   return (
-    <div className="p-6 mx-w-2xl mx-auto h-screen bg-gray-800 rounded-lg shadow-md">
-      <h1 className="text-2xl font-bold text-center text-gray-100 mb-6">
-        Settings
-      </h1>
+    <div className="pt-5 mx-w-2xl mx-auto h-screen bg-black rounded-lg shadow-md">
+      <div className="flex justify-between  items-center px-4 pb-5">
+        <h2
+          className="text-white text-2xl font-bold ml-2 t font-bold text-2xl leading-tight flex gap-2"
+          // style={{ fontFamily: "'Dancing Script', cursive" }}
+        >
+          {/* <GrAd className="text-[#d8fc5f]" /> */}
+          Settings
+        </h2>
+        {/* <Link to={"/profile"}>
+          <img
+            src={
+              user?.profile_image ||
+              "https://as1.ftcdn.net/v2/jpg/03/53/11/00/1000_F_353110097_nbpmfn9iHlxef4EDIhXB1tdTD0lcWhG9.jpg"
+            }
+            alt="Profile"
+            className="w-10 h-10 rounded-full  object-cover"
+          />
+        </Link> */}
+      </div>
 
-      <div className="space-y-4">
+      <div className="space-y-4 px-5">
         <Link
           to="/profile"
-          className="flex items-center justify-between p-4 bg-gray-900 rounded-lg"
+          className="flex items-center -ml-2 px-3 py-2 rounded-[1.3rem] backdrop-blur bg-white/10 border border-white/10
+                         shadow-[inset_0_0_1px_rgba(255,255,255,0.02)] transition-transform hover:scale-105 text-white text-lg font-medium"
         >
           <div className="flex items-center space-x-3">
-            <FaUser className="text-gray-500 text-lg" />
-            <span className="text-gray-100">Account</span>
+            <Link to={"/profile"}>
+              <img
+                src={
+                  user?.profile_image ||
+                  "https://as1.ftcdn.net/v2/jpg/03/53/11/00/1000_F_353110097_nbpmfn9iHlxef4EDIhXB1tdTD0lcWhG9.jpg"
+                }
+                alt="Profile"
+                className="w-12 h-12 rounded-full  object-cover"
+              />
+            </Link>
+            <div className="flex flex-col">
+              <span className="text-gray-100">{user?.full_name}</span>
+              <span className="text-gray-500 text-xs">@{user?.user_name}</span>
+            </div>
           </div>
         </Link>
 
-        <div className="flex items-center justify-between p-4 bg-gray-900 rounded-lg">
+        <div
+          className="flex items-center -ml-2 px-3 py-2 rounded-[1.3rem] backdrop-blur bg-white/10 border border-white/10
+                         shadow-[inset_0_0_1px_rgba(255,255,255,0.02)] transition-transform hover:scale-105 text-white text-lg font-medium"
+        >
           <div className="flex items-center space-x-3">
             <FaBell className="text-gray-500 text-lg" />
             <span className="text-gray-100">Notifications</span>
           </div>
-          <label className="relative inline-flex items-center cursor-pointer">
+          <label className="relative ml-auto inline-flex items-center cursor-pointer">
             <input
               type="checkbox"
               checked={notificationsEnabled}
               onChange={() => setNotificationsEnabled(!notificationsEnabled)}
-              className="sr-only"
+              className="sr-only bg-black"
             />
-            <div className="w-10 h-5 bg-gray-200 rounded-full peer peer-checked:bg-green-500">
+            <div className="w-10 h-4 bg-gray-500 rounded-full peer peer-checked:bg-green-500">
               <div
                 className={`w-4 h-4 bg-white rounded-full shadow transform transition-transform peer-checked:translate-x-5`}
               ></div>
             </div>
           </label>
         </div>
+        <div className="flex h-56 justify-center gap-5">
+          <div
+            className=" w-[47%] items-center -ml-2 px-3 py-4 rounded-[1.3rem] backdrop-blur bg-[#d8fc5f] border border-white/10
+                         shadow-[inset_0_0_1px_rgba(255,255,255,0.02)] transition-transform hover:scale-105 text-white text-lg font-medium"
+          >
+            <div className="flex items-center justify-center w-10 h-10 mb-2 rounded-full bg-black">
+              <FaLock className="text-white text-lg" />
+            </div>
 
-        <div className="flex items-center justify-between p-4 bg-gray-900 rounded-lg">
-          <div className="flex items-center space-x-3">
-            <FaLock className="text-gray-500 text-lg" />
-            <span className="text-gray-100">Privacy</span>
+            <div className="flex items-center space-x-3">
+              <span className="text-black text-sm">
+                We ensure your confidential data, and protect against
+                unauthorized access.
+              </span>
+            </div>
+          </div>
+
+          <div
+            className=" w-[47%] items-center -ml-2 px-3 py-4 rounded-[1.3rem] backdrop-blur bg-[#d3b5fe] border border-white/10
+                         shadow-[inset_0_0_1px_rgba(255,255,255,0.02)] transition-transform hover:scale-105 text-white text-lg font-medium"
+          >
+            <div className="flex items-center justify-center w-10 h-10 mb-2 rounded-full bg-black">
+              <FaShieldAlt className="text-white text-lg" />
+            </div>
+
+            <div className="flex items-center space-x-3">
+              <span className="text-black text-sm">
+                We prioritize safeguarding your data to prevent unauthorized
+                access
+              </span>
+            </div>
           </div>
         </div>
 
-        <div className="flex items-center justify-between p-4 bg-gray-900 rounded-lg">
-          <div className="flex items-center space-x-3">
-            <FaShieldAlt className="text-gray-500 text-lg" />
-            <span className="text-gray-100">Security</span>
-          </div>
-        </div>
-
-        <div className="flex items-center justify-between p-4 bg-gray-900 rounded-lg">
+        <div
+          className="flex items-center -ml-2 px-3 py-2 rounded-[1.3rem] backdrop-blur bg-white/10 border border-white/10
+                         shadow-[inset_0_0_1px_rgba(255,255,255,0.02)] transition-transform hover:scale-105 text-white text-lg font-medium"
+        >
           <div className="flex items-center space-x-3">
             <FaCog className="text-gray-500 text-lg" />
             <span className="text-gray-100">Preferences</span>
           </div>
-          <label className="relative inline-flex items-center cursor-pointer">
-            <input
-              type="checkbox"
-              //   checked={darkModeEnabled}
-              //   onChange={() => setDarkModeEnabled(!darkModeEnabled)}
-              className="sr-only bg-gray-800"
-            />
-            <div className="w-10 h-5 bg-gray-200 rounded-full peer peer-checked:bg-blue-500">
-              <div
-                className={`w-4 h-4 bg-white rounded-full shadow transform transition-transform peer-checked:translate-x-5`}
-              ></div>
-            </div>
-          </label>
         </div>
 
         <div
-          className="flex items-center justify-between p-4 bg-gray-900 rounded-lg cursor-pointer hover:bg-red-100"
+          className="flex items-center -ml-2 px-3 py-2 rounded-[1.3rem] backdrop-blur bg-white/10 border border-white/10
+                         shadow-[inset_0_0_1px_rgba(255,255,255,0.02)] transition-transform hover:scale-105 text-white text-lg font-medium"
           onClick={handleLogout}
         >
           <div className="flex items-center space-x-3">
@@ -141,13 +184,13 @@ const SettingsScreen = () => {
             <div className="flex justify-around">
               <button
                 onClick={confirmLogout}
-                className="bg-red-600 hover:bg-red-500 text-white py-2 px-4 rounded-lg"
+                className="bg-red-600 hover:bg-red-500 text-white py-3 px-6 rounded-full"
               >
                 Yes, Logout
               </button>
               <button
                 onClick={cancelLogout}
-                className="bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded-lg"
+                className="bg-gray-700 hover:bg-gray-600 text-white py-3 px-6 rounded-full"
               >
                 No, Cancel
               </button>

@@ -2,10 +2,12 @@ import { useState, useEffect, useContext } from "react";
 import { FiSearch } from "react-icons/fi";
 import { api } from "../../utils/api";
 import { IUser } from "../../@types/interface/user.interface";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AuthContext from "../../contexts/authContext/authContext";
 import { demoProfileImage } from "../../constants/dummyContent/DummyExamples";
 import FloatingNavbar from "../shared/floatingNavbar/FloatingNavbar";
+import { IoReturnUpBack } from "react-icons/io5";
+import Loader from "../shared/loader/Loader";
 
 const Search = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -51,57 +53,81 @@ const Search = () => {
     }
   };
   return (
-    <div className="fixed inset-0 flex justify-center items-end bg-gray-900 bg-opacity-75 transition-all duration-300 h-screen">
-      <div className="w-full h-full bg-gray-900 p-4 rounded-t-lg text-white transition-transform duration-300 transform">
-        {/* Search bar */}
-        <div className="text-xl text-white font-semibold mb-2">
-          Search Users
-        </div>
-        <div className="flex items-center px-2 py-2 bg-gray-800  border border-gray-900 rounded-lg mb-2">
-          <input
-            type="text"
-            placeholder="Search"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="bg-transparent text-white flex-1 pl-2 focus:outline-none focus:ring-0 border-none"
-          />
-          <FiSearch size={20} />
+    <div className="flex flex-col  bg-black pt-5">
+      <div className="flex justify-between space-x-3 px-5">
+        <Link
+          to={"/"}
+          className="flex items-center -ml-2 px-3 py-2 rounded-full backdrop-blur bg-white/10 border border-white/10
+                             shadow-[inset_0_0_1px_rgba(255,255,255,0.02)] transition-transform hover:scale-105 text-white text-sm font-medium"
+        >
+          <IoReturnUpBack
+            size={22}
+            className="text-[#d8fc5f] font-extrabold mr-1"
+          />{" "}
+          Back
+        </Link>
+      </div>
+      <div className="text-gray-200 text-4xl w-48 ml-5 my-5">
+        What are you looking for?
+      </div>
+
+      <div className="w-full h-full bg-black  rounded-t-lg text-white px-2 transition-transform duration-300 transform">
+        <div className=" rounded-2xl px-3 pb-4">
+          {/* Search bar */}
+
+          <div className="flex items-center px-5 h-12 rounded-full backdrop-blur  bg-[#181818] border border-white/10 shadow-[inset_0_0_1px_rgba(255,255,255,0.02)] transition-transform text-gray-200">
+            <input
+              type="text"
+              placeholder="Type something.."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="bg-transparent text-white flex-1 pl-2 focus:outline-none focus:ring-0 border-none"
+            />
+            <FiSearch size={22} className="text-[#d8fc5f]" />
+          </div>
         </div>
 
         {/* Search Results */}
         <div className="mt-2">
           {isLoading ? (
-            <p>Loading...</p>
+            <Loader />
           ) : results.length > 0 ? (
-            <ul>
-              {results.map((user) => (
-                <li
-                  key={user._id}
-                  className="border-b border-gray-700 bg-gray-800 px-5 mb-2 rounded-xl border-gray-600 py-2"
-                >
+            <>
+              <div className="grid grid-cols-2 gap-4 overflow-y-scroll hidescroll">
+                {results.map((user) => (
                   <div
-                    className="flex items-center"
+                    key={user._id}
+                    className="mb-4 rounded-xl overflow-hidden "
                     onClick={() => handleUserClick(user._id)}
                   >
-                    <img
-                      src={user.profile_image || demoProfileImage}
-                      alt={user.full_name}
-                      className="w-10 h-10 rounded-full mr-3"
-                    />
-                    <div>
-                      <p>{user.full_name}</p>
-                      <p className="text-sm text-gray-400">@{user.user_name}</p>
+                    <div className="relative h-56 w-full">
+                      {/* Background Image */}
+                      <img
+                        src={user.profile_image || demoProfileImage}
+                        alt={user.full_name}
+                        className="absolute inset-0 w-full h-full object-cover"
+                      />
+
+                      {/* Overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-80"></div>
+
+                      {/* User Name */}
+                      <div className="absolute bottom-0 left-0 w-full px-4 py-2 bg-gradient-to-t from-black/50 to-transparent">
+                        <p className="text-white font-bold">{user.full_name}</p>
+                        <p className="text-sm text-gray-300">
+                          @{user.user_name}
+                        </p>
+                      </div>
                     </div>
                   </div>
-                </li>
-              ))}
-            </ul>
+                ))}
+              </div>
+            </>
           ) : (
-            searchQuery && <p>No users found</p>
+            searchQuery && <Loader />
           )}
         </div>
       </div>
-      <FloatingNavbar />
     </div>
   );
 };
