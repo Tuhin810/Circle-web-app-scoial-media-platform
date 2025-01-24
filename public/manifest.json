@@ -2,9 +2,10 @@
   "short_name": "Circle",
   "name": "Circle - A platform for students",
   "icons": [
+  
     {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
+      "src": "logo144.png",
+      "sizes": "144x144",
       "type": "image/x-icon"
     },
     {
